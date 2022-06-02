@@ -2,7 +2,9 @@ spring:
 
   datasource:
     username: root
-    password: 8c84774ada469edf
+    password: 123456
+#    username: root
+#    password: 8c84774ada469edf
     url: jdbc:mysql://localhost:3306/xiangliban?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
 
