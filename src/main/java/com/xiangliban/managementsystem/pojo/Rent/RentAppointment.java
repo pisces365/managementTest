@@ -50,4 +50,10 @@ public class RentAppointment {
     @ApiModelProperty(value = "预约结束时间")
     private String hroOrderEndTime;
 
+
+    public RentAppointment(String hroOrderDate, String hroOrderStartTime, String hroOrderEndTime) {
+        this.hroOrderDate = hroOrderDate;
+        this.hroOrderStartTime = hroOrderStartTime;
+        this.hroOrderEndTime = hroOrderEndTime;
+    }
 }
