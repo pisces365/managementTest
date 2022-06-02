@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiangliban.managementsystem.dao.mapper.ExpressMapper">
+    <resultMap id="packages" type="java.util.HashMap">
+        <id property="packageId" column="package_id"/>
+        <result property="uid" column="uid"/>
+        <result property="packageDetails" column="package_details"/>
+        <result property="packageLogisticsCompany" column="package_logistics_company"/>
+        <result property="packageSenderAddress" column="package_sender_address"/>
+        <result property="packageRecipientAddress" column="package_recipient_address"/>
+        <result property="packageSenderName" column="package_sender_name"/>
+        <result property="packageRecipientName" column="package_recipient_name"/>
+        <result property="packageSenderPhone" column="package_sender_phone"/>
+        <result property="packageRecipientPhone" column="package_recipient_phone"/>
+        <result property="packageEta" column="package_eta"/>
+        <result property="packagePaymentMethod" column="package_payment_method"/>
+        <result property="packageWeight" column="package_weight"/>
+        <result property="packageType" column="package_type"/>
+        <result property="packageAdditionalServices" column="package_additional_services"/>
+        <result property="packageFreight" column="package_freight"/>
+        <result property="packageState" column="package_state"/>
+    </resultMap>
+    <select id="selectAllPackagesByUserId" resultMap="packages">
+        select * from `package` where `uid` = #{uid}
+    </select>
+
+
+    <select id="selectUnsignedPackageByUserIdAndOrderTime" resultMap="packages">
+        select * from `package` where `uid` = #{uid} and `package_state` != 5
+    </select>
+    <select id="selectSignedPackageByUserIdAndOrderTime" resultMap="packages">
+        select * from `package` where `uid` = #{uid} and `package_state` = 5
+    </select>
+
+
+    <update id="setPackageSignedState" parameterType="String">
+        update `package` set `package_state`= 5 where package_id= #{packageId}
+    </update>
+    <insert id="addPackageSignedState" parameterType="String">
+        insert into `package_process` values(#{packageProcessId}, #{packageId}, #{processTime}, 5, "用户设置包裹状态已签收")
+    </insert>
+
+
+    <select id="selectPackageByPackageId" resultMap="packages">
+        select * from `package` where package_id = #{packageId}
+    </select>
+
+    <resultMap id="packageprocess" type="java.util.HashMap">
+        <id column="package_process_id" property="packageProcessId"/>
+        <result column="package_id" property="packageId"/>
+        <result column="process_time" property="processTime"/>
+        <result column="package_state" property="packageState"/>
+        <result column="state_details" property="stateDetails"/>
+    </resultMap>
+    <select id="selectPackageProcessesByPackageId" resultMap="packageprocess">
+        select * from `package_process` where package_id = #{packageId}
+    </select>
+    <insert id="">
+
+    </insert>
+
+
+    <resultMap id="delivery" type="java.util.HashMap">
+        <result property="packageId" column="package_id"/>
+        <result property="uid" column="uid"/>
+        <result property="packageDetails" column="package_details"/>
+        <result property="packageLogisticsCompany" column="package_logistics_company"/>
+        <result property="packageSenderAddress" column="package_sender_address"/>
+        <result property="packageRecipientAddress" column="package_recipient_address"/>
+        <result property="packageSenderName" column="package_sender_name"/>
+        <result property="packageRecipientName" column="package_recipient_name"/>
+        <result property="packageSenderPhone" column="package_sender_phone"/>
+        <result property="packageRecipientPhone" column="package_recipient_phone"/>
+        <result property="packageEta" column="package_eta"/>
+        <result property="packagePaymentMethod" column="package_payment_method"/>
+        <result property="packageWeight" column="package_weight"/>
+        <result property="packageType" column="package_type"/>
+        <result property="packageAdditionalServices" column="package_additional_services"/>
+        <result property="packageFreight" column="package_freight"/>
+        <result property="packageState" column="package_state"/>
+        <result property="deliveryId" column="delivery_id"/>
+        <result property="deliveryRecipientName" column="delivery_recipient_name"/>
+        <result property="deliveryRecipientPhone" column="delivery_recipient_phone"/>
+        <result property="deliveryRecipientAddress" column="delivery_recipient_address"/>
+        <result property="deliveryRecipientGender" column="delivery_recipient_gender"/>
+        <result property="deliveryEta" column="delivery_eta"/>
+        <result property="deliveryPaymentMethod" column="delivery_payment_method"/>
+        <result property="deliveryFreight" column="delivery_freight"/>
+        <result property="deliveryPhonesProtected" column="delivery_phones_protected"/>
+        <result property="deliveryContactlessDistribution" column="delivery_contactless_distribution"/>
+        <result property="orderId" column="order_id"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="puid" column="puid"/>
+        <result property="orderCourierStatus" column="order_courier_status"/>
+        <result property="orderCourierLocation" column="order_courier_location"/>
+    </resultMap>
+    <select id="selectIndoorBookedPackageByUserIdAndOrderTime" resultMap="delivery">
+        select * from `delivery_request` a,`package` b,`delivery_order` c
+            where b.uid = #{uid} and a.package_id = b.package_id
+                and a.delivery_id = c.delivery_id and c.order_status = 1
+    </select>
+    <select id="selectIndoorFinishedPackageByUserIdAndOrderTime" resultMap="delivery">
+        select * from `delivery_request` a,`package` b,`delivery_order` c
+            where b.uid = #{uid} and a.package_id = b.package_id
+                and a.delivery_id = c.delivery_id and c.order_status = 2
+    </select>
+
+    <select id="selectNoOrderBookedPackageByUserId" resultMap="delivery">
+        select * from `delivery_request` a,`package` b
+            where a.delivery_id not in (select delivery_id from  delivery_order )
+            and a.package_id = b.package_id and b.uid = #{uid}
+    </select>
+
+    <select id="selectNoOrderBookedPackageByPackageId" resultMap="delivery">
+        select * from `delivery_request` a,`package` b
+            where a.delivery_id not in (select delivery_id from  delivery_order )
+            and a.package_id = b.package_id and b.package_id = #{packageId}
+    </select>
+
+    <select id="selectBookedDeliveryRequestByPackageId" resultMap="delivery">
+        select * from `delivery_request` a,`package` b,`delivery_order` c
+            where a.package_id = #{packageId} and a.package_id = b.package_id
+                and a.delivery_id = c.delivery_id
+    </select>
+    <select id="selectFinishedDeliveryRequestByPackageId" resultMap="delivery">
+        select * from `delivery_request` a,`package` b,`delivery_order` c
+            where a.package_id = #{packageId} and a.package_id = b.package_id
+                and a.delivery_id = c.delivery_id
+    </select>
+
+
+    <insert id="postUserIndoorBooking" parameterType="DeliveryRequest">
+        insert into `delivery_request` values(
+        #{deliveryRequest.deliveryId},
+        #{deliveryRequest.uid},
+        #{deliveryRequest.packageId},
+        #{deliveryRequest.deliveryRecipientName},
+        #{deliveryRequest.deliveryRecipientPhone},
+        #{deliveryRequest.deliveryRecipientAddress},
+        #{deliveryRequest.deliveryRecipientGender},
+        #{deliveryRequest.deliveryEta},
+        #{deliveryRequest.deliveryPaymentMethod},
+        #{deliveryRequest.deliveryFreight},
+        #{deliveryRequest.deliveryPhonesProtected},
+        #{deliveryRequest.deliveryContactlessDistribution})
+    </insert>
+
+
+    <resultMap id="deliveryrequest" type="java.util.HashMap">
+        <id property="deliveryId" column="delivery_id"/>
+        <result property="uid" column="uid"/>
+        <result property="packageId" column="package_id"/>
+        <result property="deliveryRecipientName" column="delivery_recipient_name"/>
+        <result property="deliveryRecipientPhone" column="delivery_recipient_phone"/>
+        <result property="deliveryRecipientAddress" column="delivery_recipient_address"/>
+        <result property="deliveryRecipientGender" column="delivery_recipient_gender"/>
+        <result property="deliveryEta" column="delivery_eta"/>
+        <result property="deliveryPaymentMethod" column="delivery_payment_method"/>
+        <result property="deliveryFreight" column="delivery_freight"/>
+        <result property="deliveryPhonesProtected" column="delivery_phones_protected"/>
+        <result property="deliveryContactlessDistribution" column="delivery_contactless_distribution"/>
+    </resultMap>
+    <select id="selectNewBookedDeliveryRequests" resultMap="deliveryrequest">
+        select * from `delivery_request`
+            where delivery_id not in (select delivery_id from  delivery_order )
+    </select>
+    <select id="selectNewDeliveryRequestByDeliveryId" resultMap="delivery">
+        select * from `delivery_request` a,`package` b,`delivery_order` c
+            where a.delivery_id = #{deliveryId} and a.package_id = b.package_id
+                and a.delivery_id = c.delivery_id
+    </select>
+
+
+    <select id="selectMyOngoingOrders" resultMap="delivery">
+        select * from `delivery_request` a,`package` b,`delivery_order` c
+            where c.puid = #{uid} and a.package_id = b.package_id
+                and a.delivery_id = c.delivery_id and c.order_status = 1
+    </select>
+    <select id="selectMyFinishedOrders" resultMap="delivery">
+        select * from `delivery_request` a,`package` b,`delivery_order` c
+            where c.puid = #{uid} and a.package_id = b.package_id
+                and a.delivery_id = c.delivery_id and c.order_status = 2
+    </select>
+
+
+    <select id="selectMyOngoingOrderByOrderId" resultMap="delivery">
+        select * from `delivery_request` a,`package` b,`delivery_order` c
+            where c.order_id = #{orderId} and a.package_id = b.package_id
+                and a.delivery_id = c.delivery_id
+    </select>
+    <select id="selectMyFinishedOrderByOrderId" resultMap="delivery">
+        select * from `delivery_request` a,`package` b,`delivery_order` c
+            where c.order_id = #{orderId} and a.package_id = b.package_id
+                and a.delivery_id = c.delivery_id
+    </select>
+
+
+    <insert id="tackOrder" parameterType="DeliveryOrder">
+        insert into `delivery_order` values(
+        #{deliveryOrder.orderId},
+        #{deliveryOrder.deliveryId},
+        #{deliveryOrder.orderStatus},
+        #{deliveryOrder.puid},
+        #{deliveryOrder.orderCourierStatus},
+        #{deliveryOrder.orderCourierLocation}
+        )
+    </insert>
+    <update id="updateOrderState" parameterType="DeliveryOrder">
+        update `delivery_order` set `order_status`= #{deliveryOrder.orderStatus}, order_courier_status = #{deliveryOrder.orderCourierStatus} where order_id= #{deliveryOrder.orderId}
+    </update>
+
+
+    <select id="selectNotAppointmentPackageByUserId" resultMap="packages">
+        select * from `package`
+        where `uid` = #{uid}
+        and `package_id` not in (select `package_id` from delivery_request)
+    </select>
+</mapper>

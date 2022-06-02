@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiangliban.managementsystem.dao.mapper.RentMapper">
+
+    <resultMap id="rentInformation" type="java.util.HashMap">
+        <id property="hrId" column="hr_id"/>
+        <result property="hrUserId" column="hr_user_id"/>
+        <result property="hrLocation" column="hr_location"/>
+        <result property="hrType" column="hr_type"/>
+        <result property="hrPrice" column="hr_price"/>
+        <result property="hrArea" column="hr_area"/>
+        <result property="hrToward" column="hr_toward"/>
+        <result property="hrLivingRoomAmount" column="hr_living_room_amount"/>
+        <result property="hrBedroomAmount" column="hr_bedroom_amount"/>
+        <result property="hrBedAmount" column="hr_bed_amount"/>
+        <result property="hrToiletAmount" column="hr_toilet_amount"/>
+        <result property="hrRoomAmount" column="hr_room_amount"/>
+        <result property="hrPicture" column="hr_picture"/>
+        <result property="hrDescribe" column="hr_describe"/>
+        <result property="hrIntroduce" column="hr_introduce"/>
+        <result property="hrCheck" column="hr_check"/>
+        <result property="hrFloor" column="hr_floor"/>
+        <result property="hrpay" column="hr_pay"/>
+        <result property="hrDecorate" column="hr_decorate"/>
+        <result property="hrWashingMachine" column="hr_washing_machine"/>
+        <result property="hrRefrigerator" column="hr_refrigerator"/>
+        <result property="hrTv" column="hr_tv"/>
+        <result property="hrAirConditioner" column="hr_air_conditioner"/>
+        <result property="hrWaterHeater" column="hr_water_heater"/>
+        <result property="hrNaturalGas" column="hr_natural_gas"/>
+        <result property="hrNetwork" column="hr_network"/>
+        <result property="hrCloset" column="hr_closet"/>
+    </resultMap>
+    <resultMap id="rentAppointment" type="java.util.HashMap">
+        <id property="hroId" column="hro_id"/>
+        <result property="hroRentId" column="hro_rent_id"/>
+        <result property="hroTenantId" column="hro_tenant_id"/>
+        <result property="hroOrderDate" column="hro_order_date"/>
+        <result property="hroOrderStartTime" column="hro_order_start_time"/>
+        <result property="hroOrderEndTime" column="hro_order_end_time"/>
+    </resultMap>
+    <select id="selectRentInformationByAllSearchItems" resultMap="rentInformation">
+        select
+        `hr_id`,`hr_describe`,`hr_price`,`hr_living_room_amount`,`hr_bedroom_amount`,`hr_bed_amount`,`hr_toilet_amount`,`hr_area`,`hr_toward`,`hr_picture`
+        from `rent_information`
+        where `hr_user_id` != #{userId}
+
+        <if test="low >= 0 and high > 0">
+            and `hr_price` &gt;= #{low} and `hr_price` &lt; #{high}
+        </if>
+        <if test="low >= 0 and high == -1">
+            and `hr_price` &gt;= #{low}
+        </if>
+        <if test="type > 0 ">
+            and `hr_type` = #{type}
+        </if>
+        <if test="tiny >= 0 and large > 0">
+            and `hr_area` &gt;= #{tiny} and `hr_area` &lt; #{large}
+        </if>
+        <if test="tiny >= 0 and large == -1">
+            and `hr_area` &gt;= #{tiny}
+        </if>
+        <if test="amount > 0 and amount &lt; 4">
+            and `hr_living_room_amount` = #{amount}
+        </if>
+        <if test="amount >= 4">
+            and `hr_living_room_amount` &gt;= #{amount}
+        </if>
+        <if test="toward > 0">
+            and `hr_toward` = #{toward}
+        </if>
+
+        <if test="order == 1">
+            order by `hr_price` asc
+        </if>
+        <if test="order == 2">
+            order by `hr_price` desc
+        </if>
+        <if test="order == 3">
+            order by `hr_area` asc
+        </if>
+        <if test="order == 4">
+            order by `hr_area` desc
+        </if>
+    </select>
+
+    <select id="selectRentInformationByUserId" resultMap="rentInformation">
+        select * from `rent_information`
+        where `hr_user_id` = #{userId}
+    </select>
+
+    <select id="selectRentInformationByHouseId" resultMap="rentInformation">
+        select * from `rent_information`
+        where `hr_id` = #{houseId}
+    </select>
+
+    <insert id="insertIntoRentInformation">
+        INSERT INTO `rent_information`
+        (
+        `hr_id`,
+        `hr_user_id`,
+        `hr_location`,
+        `hr_type`,
+        `hr_price`,
+        `hr_area`,
+        `hr_toward`,
+        `hr_living_room_amount`,
+        `hr_bedroom_amount`,
+        `hr_bed_amount`,
+        `hr_toilet_amount`,
+        `hr_room_amount`,
+        `hr_picture`,
+        `hr_describe`,
+        `hr_introduce`,
+        `hr_check`,
+        `hr_floor`,
+        `hr_pay`,
+        `hr_decorate`,
+        `hr_washing_machine`,
+        `hr_refrigerator`,
+        `hr_tv`,
+        `hr_air_conditioner`,
+        `hr_water_heater`,
+        `hr_natural_gas`,
+        `hr_network`,
+        `hr_closet`
+        )
+        VALUES
+        (
+        #{rentInformation.hrId},
+        #{rentInformation.hrUserId},
+        #{rentInformation.hrLocation},
+        #{rentInformation.hrType},
+        #{rentInformation.hrPrice},
+        #{rentInformation.hrArea},
+        #{rentInformation.hrToward},
+        #{rentInformation.hrLivingRoomAmount},
+        #{rentInformation.hrBedroomAmount},
+        #{rentInformation.hrBedAmount},
+        #{rentInformation.hrToiletAmount},
+        #{rentInformation.hrRoomAmount},
+        #{rentInformation.hrPicture},
+        #{rentInformation.hrDescribe},
+        #{rentInformation.hrIntroduce},
+        #{rentInformation.hrCheck},
+        #{rentInformation.hrFloor},
+        #{rentInformation.hrpay},
+        #{rentInformation.hrDecorate},
+        #{rentInformation.hrWashingMachine},
+        #{rentInformation.hrRefrigerator},
+        #{rentInformation.hrTv},
+        #{rentInformation.hrAirConditioner},
+        #{rentInformation.hrWaterHeater},
+        #{rentInformation.hrNaturalGas},
+        #{rentInformation.hrNetwork},
+        #{rentInformation.hrCloset}
+        );
+    </insert>
+
+    <insert id="insertIntoRentAppointment">
+        INSERT INTO `rent_appointment`
+	    (`hro_id`,`hro_rent_id`,`hro_tenant_id`,`hro_order_date`,`hro_order_start_time`,`hro_order_end_time`)
+	    VALUES (#{rentAppointment.hroId},#{rentAppointment.hroRentId},#{rentAppointment.hroTenantId},#{rentAppointment.hroOrderDate},#{rentAppointment.hroOrderStartTime},#{rentAppointment.hroOrderEndTime});
+    </insert>
+
+    <select id="selectRentAppointmentByHouseId" resultMap="rentAppointment">
+        select * from `rent_appointment`
+        where `hro_rent_id` = #{houseId}
+    </select>
+
+    <select id="selectRentInformationByDescribe" resultMap="rentInformation">
+        SELECT * FROM `rent_information` WHERE `hr_describe` LIKE "%"#{hrDescribe}"%"
+    </select>
+</mapper>

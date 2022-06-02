@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiangliban.managementsystem.dao.mapper.VoteMapper">
+    <select id="selectAllVoteType" resultType="VoteType">
+        select * from `votetype`
+    </select>
+    <select id="selectVoteDetailsByType" resultType="VoteInfo">
+        select * from `voteinfo` where `type` = #{type}
+    </select>
+    <select id="selectVoteDetailById" resultType="VoteInfo">
+        select * from `voteinfo` where `id` = #{id}
+    </select>
+    <select id="selectAllVoteDetail" resultType="VoteInfo">
+        select * from `voteinfo`
+    </select>
+    <select id="selectVotePersonDetailsById" resultType="VotePersonSelect">
+        SELECT a.`name`, a.`sex`, a.`age`,b.`voteid`,a.`political_face`, b.`duty`, b.`brief_intro`, b.`outlook`, b.`votes`, b.`img`  FROM `user` a,`voteperson` b
+	        WHERE a.`uid` = b.`uid` AND a.`uid` = #{uid} AND b.`voteinfoid` = #{voteinfoid}
+    </select>
+    <select id="selectVotePersonDetailsByVoteInfoId" resultType="VotePersonSelect">
+        SELECT a.`uid`, a.`name`, a.`sex`, a.`age`,b.`voteid`,a.`political_face`, b.`img`, b.`votes`  FROM `user` a,`voteperson` b
+	        WHERE a.`uid` = b.`uid` AND b.`voteinfoid` = #{voteinfoid}
+    </select>
+
+    <insert id="addVoteType" parameterType="VoteType">
+        insert into `votetype`(id,`name`) values(#{id}, #{name})
+    </insert>
+    <update id="updateVoteType" parameterType="VoteType">
+        update `votetype` set `name`= #{name} where id= #{id}
+    </update>
+    <delete id="deleteVoteType" parameterType="VoteType">
+        delete from `votetype` where id = #{id}
+    </delete>
+
+    <insert id="addVoteInfo" parameterType="VoteInfo">
+        insert into `voteinfo` values(#{voteInfo.id}, #{voteInfo.name},#{voteInfo.state},
+        #{voteInfo.department},#{voteInfo.intro},#{voteInfo.start}, #{voteInfo.end},
+        #{voteInfo.img}, #{voteInfo.type})
+    </insert>
+    <delete id="deleteVoteInfo" parameterType="VoteInfo">
+        delete from `voteinfo` where id = #{id}
+    </delete>
+
+    <insert id="addVotePerson" parameterType="VotePerson">
+        insert into `voteperson`(voteid,uid,voteinfoid,brief_intro,outlook,duty,img)
+        values(#{votePerson.voteid}, #{votePerson.uid},#{votePerson.voteinfoid},
+        #{votePerson.brief_intro},#{votePerson.outlook},#{votePerson.duty},#{votePerson.img})
+    </insert>
+    <delete id="deleteVotePerson" parameterType="VotePerson">
+        delete from `voteperson` where id = #{id}
+    </delete>
+
+    <select id="selectVoteDetailsByTime" resultType="VoteInfo">
+        select * from `voteinfo` where `start` like "%"#{start}"%" and `end` like "%"#{end}"%"
+    </select>
+
+    <resultMap id="voterecord" type="java.util.HashMap">
+        <id property="id" column="id"/>
+        <result property="voteInfoId" column="vote_info_id"/>
+        <result property="votePersonUid" column="vote_person_uid"/>
+        <result property="uid" column="uid"/>
+    </resultMap>
+    <insert id="addVoteRecord">
+        insert into `voterecord` values
+        (#{voteRecord.id},#{voteRecord.voteInfoId},#{voteRecord.votePersonUid},#{voteRecord.uid})
+    </insert>
+    <update id="updatePersonVote">
+        UPDATE `voteperson` SET `votes` = `votes` + 1 WHERE voteid = #{voteid}
+    </update>
+    <select id="selectVoteRecord" resultType="int">
+        select count(*) from `voterecord`
+        where vote_info_id = #{voteInfoId} and
+        vote_person_uid = #{votePersonUid} and
+        uid = #{uid}
+    </select>
+</mapper>
