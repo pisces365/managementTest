@@ -21,6 +21,7 @@ public class VoteService {
 
     @Autowired
     private VoteMapper voteMapper;
+    public void setVoteMapper(VoteMapper voteMapper){this.voteMapper=voteMapper;}
 
     public List<VoteType> selectAllVoteType() {
         return voteMapper.selectAllVoteType();
