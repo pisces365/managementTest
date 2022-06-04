@@ -76,10 +76,10 @@ public class RentService5Test {
         replay(rentMapper);
 
         if(hrDescribe != null && !hrDescribe.equals("")) {
-            assertEquals(rentService.selectRentInformationByDescribe(hrDescribe).get(0).get("1").getHrId(), "0");
+            assertEquals("0", rentService.selectRentInformationByDescribe(hrDescribe).get(0).get("1").getHrId());
             verify(rentMapper);
         } else {
-            assertEquals(rentService.selectRentInformationByDescribe(hrDescribe), new ArrayList<>());
+            assertEquals(new ArrayList<>(), rentService.selectRentInformationByDescribe(hrDescribe));
         }
 
     }
