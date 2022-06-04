@@ -86,10 +86,10 @@ public class RentService3Test {
 
 
         if(houseId != null && houseId.length() == 14) {
-            assertEquals(rentService.selectRentInformationByHouseId(houseId).get("1").getHrId(), "20211219154043");
+            assertEquals("20211219154043", rentService.selectRentInformationByHouseId(houseId).get("1").getHrId());
             verify(rentMapper);
         } else {
-            assertEquals(rentService.selectRentInformationByHouseId(houseId), new HashMap<>());
+            assertEquals(new HashMap<>(), rentService.selectRentInformationByHouseId(houseId));
         }
 
     }

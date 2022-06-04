@@ -130,7 +130,7 @@ public class RentService1Test {
         expect(rentMapper.selectRentInformationByAllSearchItems(low, high, type, tiny, large, area, amount, toward, order, userId)).andReturn(msr);
         replay(rentMapper);
 
-        assertEquals(rentService.selectRentInformationByAllSearchItems(low, high, type, tiny, large, area, amount, toward, order, userId),msr);
+        assertEquals(msr, rentService.selectRentInformationByAllSearchItems(low, high, type, tiny, large, area, amount, toward, order, userId));
 
         if(low > 0 && high > 0 && tiny > 0 && large > 0)
         verify(rentMapper);

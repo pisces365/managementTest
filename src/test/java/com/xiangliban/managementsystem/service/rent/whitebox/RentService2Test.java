@@ -82,7 +82,7 @@ public class RentService2Test {
         expect(rentMapper.selectRentInformationByUserId(userId)).andReturn(msr);
         replay(rentMapper);
 
-        assertEquals(rentService.selectRentInformationByUserId(userId), msr);
+        assertEquals(msr, rentService.selectRentInformationByUserId(userId));
 
         if(userId != null && userId.length() > 0 && userId.length() <= 11)
             verify(rentMapper);
