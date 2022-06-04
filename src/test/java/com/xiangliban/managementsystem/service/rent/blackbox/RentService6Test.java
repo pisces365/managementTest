@@ -38,90 +38,38 @@ public class RentService6Test {
 
     @Parameterized.Parameters(name = "{index}: low = {0}")
     public static Iterable<Object[]> data() {
-        return Arrays.asList(new Object[][] {
+        return Arrays.asList(new Object[][]{
                 //等价类划分
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信") ,1},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, -1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 8, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, -1, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 8, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", -2, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "aaaaaaaaaaaaaaaaaaaaaa", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,-1,"test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,3,"test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信") ,0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信"), 1},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, -1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 8, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", -2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, -1, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 8, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", -2, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "aaaaaaaaaaaaaaaaaaaaaa", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, -1, "test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 3, "test", "1", "test", 1, "this is a location", 1, 0, "url", 2560, 0, 3, 1, 1, 1, 1, 0, 0, "微信"), 0},
 
                 //边界值分析
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 0, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 0, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 1, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 1, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 6, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 6, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 7, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 7, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 0, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 0, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 1, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 1, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 6, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 6, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 7, 1, 3, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 7, 1, 3, 0, 0, "微信") ,0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 5, 0, 5, 1, 5, 1, 0, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 5, 0, 5, 1, 5, 1, 1, 0, 0, "微信"), 1},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 5, 0, 5, 1, 5, 1, 2, 0, 0, "微信"), 1},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 5, 0, 5, 1, 5, 1, 3, 0, 0, "微信"), 0},
 
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 0, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 0, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 1, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 1, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 6, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 6, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 7, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 7, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 0, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 0, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 1, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 1, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 6, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 6, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 7, 1, 0, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 7, 1, 0, 0, 0, "微信") ,0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 3, 1, 5, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 3, 1, 5, 1, 1, 0, 0, "微信"), 1},
 
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 0, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 0, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 1, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 1, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 6, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 6, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 7, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 7, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 0, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 0, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 1, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 1, 1, 1, 0, 0, "微信") ,1},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 6, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 6, 1, 1, 0, 0, "微信") ,1},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 7, 1, 1, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 7, 1, 1, 0, 0, "微信") ,0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 5, 0, 5, 1, 0, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 5, 0, 5, 1, 1, 1, 1, 0, 0, "微信"), 1},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 5, 0, 5, 1, 6, 1, 1, 0, 0, "微信"), 1},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 5, 0, 5, 1, 7, 1, 1, 0, 0, "微信"), 0},
 
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 0, 1, 2, 0, 0, "微信") ,0},//49
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 0, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 1, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 1, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 6, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 6, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 0, 1, 7, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", -1, 0, 1, 1, 7, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 0, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 0, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 1, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 1, 1, 2, 0, 0, "微信") ,1},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 6, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 6, 1, 2, 0, 0, "微信") ,1},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 0, 1, 7, 1, 2, 0, 0, "微信") ,0},
-                { new RentInformation(0,0,0,0,0,0,0,"test", "1", "test", 1, "this is a location", 1, 0, "url", 0, 0, 1, 1, 7, 1, 2, 0, 0, "微信") ,0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 6, 0, 0, 1, 5, 1, 1, 0, 0, "微信"), 0},
+                {new RentInformation(0, 0, 0, 0, 0, 0, 0, "test", "1", "test", 1, "this is a location", 1, 0, "url", 6, 0, 1, 1, 5, 1, 1, 0, 0, "微信"), 1},
 
         });
     }
@@ -143,7 +91,7 @@ public class RentService6Test {
         expect(rentMapper.insertIntoRentInformation(rentInformation)).andReturn(resultCode);
         replay(rentMapper);
 
-        if(resultCode == 1) {
+        if (resultCode == 1) {
             assertEquals(1, rentService.insertIntoRentInformation(rentInformation));
             verify(rentMapper);
         } else {
