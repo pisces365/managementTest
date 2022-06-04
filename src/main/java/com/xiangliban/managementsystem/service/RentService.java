@@ -35,10 +35,10 @@ public class RentService {
      * */
     public ArrayList<Map<String, RentInformation>> selectRentInformationByAllSearchItems(double low, double high, int type, double tiny, double large, double area, int amount, int toward, int order, String userId) {
         if(low < 0 || high < 0) {
-            return new ArrayList<>();
+            return new ArrayList<Map<String, RentInformation>>();
         }
         else if(tiny < 0 || large < 0) {
-            return new ArrayList<>();
+            return new ArrayList<Map<String, RentInformation>>();
         } else {
             return rentMapper.selectRentInformationByAllSearchItems(low, high, type, tiny, large, area, amount, toward, order, userId);
         }
@@ -82,45 +82,53 @@ public class RentService {
     /*
      * 插入新的租房信息
      * */
-    public void insertIntoRentInformation(RentInformation rentInformation) {
+    public int insertIntoRentInformation(RentInformation rentInformation) {
         rentInformation.setHrId(IdConsturctor.idConsturctor());
         rentInformation.setHrCheck(0);
 
-        if("".equals(rentInformation.getHrLocation())) {
-            return;
+        if(rentInformation.getHrLocation() == null || "".equals(rentInformation.getHrLocation())) {
+            return 0;
         } else if (rentInformation.getHrType() < 1 || rentInformation.getHrType() > 2) {
-            return;
+            return 0;
         } else if (rentInformation.getHrPrice() < 0) {
-            return;
+            return 0;
         } else if (rentInformation.getHrToward() < 1 || rentInformation.getHrToward() > 6) {
-            return;
+            return 0;
         } else if (rentInformation.getHrLivingRoomAmount() < 0) {
-            return;
+            return 0;
+        } else if (rentInformation.getHrRoomAmount() <= 0) {
+            return 0;
         } else if ("".equals(rentInformation.getHrPrice())) {
-            return;
+            return 0;
         } else if ("".equals(rentInformation.getHrFloor()) || rentInformation.getHrFloor().length() > 20) {
-            return;
+            return 0;
         } else if (rentInformation.getHrWashingMachine() < 0 || rentInformation.getHrWashingMachine() > 1) {
-            return;
+            return 0;
+        } else if (rentInformation.getHrPicture().length() == 0) {
+            return 0;
+        } else if (rentInformation.getHrDecorate() != 1 && rentInformation.getHrDecorate() != 0) {
+            return 0;
         } else {
             rentMapper.insertIntoRentInformation(rentInformation);
+            return 1;
         }
     }
 
     /*
      * 插入新的租房预约
      * */
-    public void insertIntoRentAppointment(RentAppointment rentAppointment) {
+    public int insertIntoRentAppointment(RentAppointment rentAppointment) {
         rentAppointment.setHroId(IdConsturctor.idConsturctor());
 
         if(!dateStrIsValid(rentAppointment.getHroOrderDate(), "yyyy-MM-dd")) {
-            return;
+            return 0;
         } else if (!checkTime(rentAppointment.getHroOrderStartTime())) {
-            return;
-        } else if (!!checkTime(rentAppointment.getHroOrderEndTime())) {
-            return;
+            return 0;
+        } else if (!checkTime(rentAppointment.getHroOrderEndTime())) {
+            return 0;
         } else {
             rentMapper.insertIntoRentAppointment(rentAppointment);
+            return 1;
         }
     }
 

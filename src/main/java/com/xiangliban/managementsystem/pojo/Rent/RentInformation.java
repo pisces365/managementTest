@@ -123,4 +123,58 @@ public class RentInformation {
     private int hrNetwork;
     private int hrCloset;
 
+    public RentInformation () {}
+
+    public RentInformation(
+            int hrAirConditioner,
+            double hrArea,
+            int hrBedAmount,
+            int hrBedroomAmount,
+            int hrCheck,
+            int hrCloset,
+            int hrDecorate,
+            String hrDescribe,
+            String hrFloor,
+            String hrIntroduce,
+            int hrLivingRoomAmount,
+            String hrLocation,
+            int hrNaturalGas,
+            int hrNetwork,
+            String hrPicture,
+            double hrPrice,
+            int hrRefrigerator,
+            int hrRoomAmount,
+            int hrToiletAmount,
+            int hrToward,
+            int hrTv,
+            int hrType,
+            int hrWashingMachine,
+            int hrWaterHeater,
+            String hrpay) {
+        this.hrLocation = hrLocation;
+        this.hrType = hrType;
+        this.hrPrice = hrPrice;
+        this.hrArea = hrArea;
+        this.hrToward = hrToward;
+        this.hrLivingRoomAmount = hrLivingRoomAmount;
+        this.hrBedroomAmount = hrBedroomAmount;
+        this.hrBedAmount = hrBedAmount;
+        this.hrToiletAmount = hrToiletAmount;
+        this.hrRoomAmount = hrRoomAmount;
+        this.hrPicture = hrPicture;
+        this.hrDescribe = hrDescribe;
+        this.hrIntroduce = hrIntroduce;
+        this.hrCheck = hrCheck;
+        this.hrFloor = hrFloor;
+        this.hrpay = hrpay;
+        this.hrDecorate = hrDecorate;
+        this.hrWashingMachine = hrWashingMachine;
+        this.hrRefrigerator = hrRefrigerator;
+        this.hrTv = hrTv;
+        this.hrAirConditioner = hrAirConditioner;
+        this.hrWaterHeater = hrWaterHeater;
+        this.hrNaturalGas = hrNaturalGas;
+        this.hrNetwork = hrNetwork;
+        this.hrCloset = hrCloset;
+    }
 }

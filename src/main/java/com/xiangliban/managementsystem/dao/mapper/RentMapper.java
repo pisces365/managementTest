@@ -89,12 +89,12 @@ public interface RentMapper {
     /*
      * 插入新的租房信息
      * */
-    void insertIntoRentInformation(@Param("rentInformation") RentInformation rentInformation);
+    int insertIntoRentInformation(@Param("rentInformation") RentInformation rentInformation);
 
     /*
      * 插入新的租房预约
      * */
-    void insertIntoRentAppointment(@Param("rentAppointment") RentAppointment rentAppointment);
+    int insertIntoRentAppointment(@Param("rentAppointment") RentAppointment rentAppointment);
 
 
     /*
